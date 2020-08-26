@@ -28,9 +28,9 @@ public class LDAP2 {
             Properties env = new Properties();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.SECURITY_AUTHENTICATION, "Simple");
-            env.put(Context.SECURITY_PRINCIPAL, "intrasite");//input user & password for access to ldap
-            env.put(Context.SECURITY_CREDENTIALS, "Temp1234");
-            env.put(Context.PROVIDER_URL, "ldap://bankgroup.pbank.if.ua:389");
+            env.put(Context.SECURITY_PRINCIPAL, "<User>");//input user & password for access to ldap
+            env.put(Context.SECURITY_CREDENTIALS, "<Password>");
+            env.put(Context.PROVIDER_URL, "ldap://<Domain>:389");
             env.put(Context.REFERRAL, "follow");
             ctx = new InitialLdapContext(env, null);
             System.out.println("LDAP Connection: COMPLETE");
@@ -49,7 +49,7 @@ public class LDAP2 {
         System.out.println("*** " + userName + " ***");
         User user = null;
         try {
-            NamingEnumeration<SearchResult> answer = ctx.search("DC=bankgroup,DC=pbank,DC=if,DC=ua", "sAMAccountName=" + userName, searchControls);
+            NamingEnumeration<SearchResult> answer = ctx.search("<Domain DC=>", "sAMAccountName=" + userName, searchControls);
             if (answer.hasMore()) {
                 Attributes attrs = answer.next().getAttributes();
                 System.out.println(attrs.get("distinguishedName"));
